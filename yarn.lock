@@ -7902,6 +7902,32 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redwoodjs/cli-data-migrate@workspace:packages/cli-packages/dataMigrate":
+  version: 0.0.0-use.local
+  resolution: "@redwoodjs/cli-data-migrate@workspace:packages/cli-packages/dataMigrate"
+  dependencies:
+    "@prisma/client": 5.1.1
+    "@redwoodjs/internal": 6.0.7
+    "@redwoodjs/project-config": 6.0.7
+    "@redwoodjs/telemetry": 6.0.7
+    "@types/fs-extra": 11.0.1
+    "@types/yargs": 17.0.24
+    chalk: 4.1.2
+    esbuild: 0.18.19
+    execa: 5.1.1
+    fast-glob: 3.3.1
+    fs-extra: 11.1.1
+    jest: 29.6.2
+    listr2: 6.6.0
+    memfs: 4.2.1
+    terminal-link: 2.1.1
+    typescript: 5.1.6
+    yargs: 17.7.2
+  bin:
+    cli-data-migrate: ./dist/bin.js
+  languageName: unknown
+  linkType: soft
+
 "@redwoodjs/cli-helpers@6.0.7, @redwoodjs/cli-helpers@workspace:packages/cli-helpers":
   version: 0.0.0-use.local
   resolution: "@redwoodjs/cli-helpers@workspace:packages/cli-helpers"
@@ -12735,7 +12761,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"arg@npm:5.0.2":
+"arg@npm:5.0.2, arg@npm:^5.0.2":
   version: 5.0.2
   resolution: "arg@npm:5.0.2"
   checksum: ccaf86f4e05d342af6666c569f844bec426595c567d32a8289715087825c2ca7edd8a3d204e4d2fb2aa4602e09a57d0c13ea8c9eea75aac3dbb4af5514e6800e
@@ -20540,6 +20566,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hyperdyperid@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "hyperdyperid@npm:1.2.0"
+  checksum: 885ba3177c7181d315a856ee9c0005ff8eb5dcb1ce9e9d61be70987895d934d84686c37c981cceeb53216d4c9c15c1cc25f1804e84cc6a74a16993c5d7fd0893
+  languageName: node
+  linkType: hard
+
 "iconv-lite@npm:0.4.24, iconv-lite@npm:^0.4.24":
   version: 0.4.24
   resolution: "iconv-lite@npm:0.4.24"
@@ -22433,6 +22466,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"json-joy@npm:^9.2.0":
+  version: 9.5.1
+  resolution: "json-joy@npm:9.5.1"
+  dependencies:
+    arg: ^5.0.2
+    hyperdyperid: ^1.2.0
+  peerDependencies:
+    quill-delta: ^5
+    rxjs: 7
+    tslib: 2
+  bin:
+    json-pack: bin/json-pack.js
+    json-pack-test: bin/json-pack-test.js
+    json-patch: bin/json-patch.js
+    json-patch-test: bin/json-patch-test.js
+    json-pointer: bin/json-pointer.js
+    json-pointer-test: bin/json-pointer-test.js
+    json-unpack: bin/json-unpack.js
+  checksum: 7086d3e6173d36b5f104874abfc6a01378c6eb90cd402df8a96d1e73728cf62fe628fc7ac501784020a695c0ea6b246cb226ba19edff6ac8ce03fbd91ad05e44
+  languageName: node
+  linkType: hard
+
 "json-parse-better-errors@npm:^1.0.1, json-parse-better-errors@npm:^1.0.2":
   version: 1.0.2
   resolution: "json-parse-better-errors@npm:1.0.2"
@@ -23804,6 +23859,18 @@ __metadata:
   version: 0.3.0
   resolution: "media-typer@npm:0.3.0"
   checksum: d160f31246907e79fed398470285f21bafb45a62869dc469b1c8877f3f064f5eabc4bcc122f9479b8b605bc5c76187d7871cf84c4ee3ecd3e487da1993279928
+  languageName: node
+  linkType: hard
+
+"memfs@npm:4.2.1":
+  version: 4.2.1
+  resolution: "memfs@npm:4.2.1"
+  dependencies:
+    json-joy: ^9.2.0
+    thingies: ^1.11.1
+  peerDependencies:
+    tslib: 2
+  checksum: 07b8322faf533d19ab658c4254d65e560fcc7a4a89ab15fb10b9aead786d91b6a27b658ec5213e9d59701185f5d35eba45def334bd2d5d321bb068cf8f07fe37
   languageName: node
   linkType: hard
 
@@ -30584,6 +30651,15 @@ __metadata:
   version: 0.2.0
   resolution: "text-table@npm:0.2.0"
   checksum: 02805740c12851ea5982686810702e2f14369a5f4c5c40a836821e3eefc65ffeec3131ba324692a37608294b0fd8c1e55a2dd571ffed4909822787668ddbee5c
+  languageName: node
+  linkType: hard
+
+"thingies@npm:^1.11.1":
+  version: 1.12.0
+  resolution: "thingies@npm:1.12.0"
+  peerDependencies:
+    tslib: ^2
+  checksum: d21518fd69cb406e1fdab8331000c2163df0fab39080039d1c9bfd901cc15b8dede45110fb4801dbc4a88f57bac60cab514019edb585c7a90c018623acf4effd
   languageName: node
   linkType: hard
 

@@ -1,18 +1,17 @@
 import terminalLink from 'terminal-link'
+import type { Argv } from 'yargs'
 
 import { recordTelemetryAttributes } from '@redwoodjs/cli-helpers'
+import { getPaths } from '@redwoodjs/project-config'
 
-import { getPaths } from '../../lib'
+import { DataMigrateUpOptions } from '../types'
 
 export const command = 'up'
 export const description =
   'Run any outstanding Data Migrations against the database'
 
-/**
- * @param {import('@types/yargs').Argv} yargs
- */
-export function builder(yargs) {
-  yargs
+export function builder(yargs: Argv): Argv {
+  return yargs
     .option('import-db-client-from-dist', {
       type: 'boolean',
       alias: ['db-from-dist'],
@@ -33,11 +32,12 @@ export function builder(yargs) {
     )
 }
 
-export async function handler(options) {
+export async function handler(options: DataMigrateUpOptions): Promise<void> {
   recordTelemetryAttributes({
     command: 'data-migrate up',
     dbFromDist: options.importDbClientFromDist,
   })
-  const { handler } = await import('./upHandler.js')
-  return handler(options)
+
+  const { handler: dataMigrateUpHandler } = await import('./upHandler.js')
+  await dataMigrateUpHandler(options)
 }

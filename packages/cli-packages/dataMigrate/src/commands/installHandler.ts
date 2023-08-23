@@ -1,24 +1,24 @@
-import path from 'path'
+import path from 'node:path'
 
 import execa from 'execa'
 import fs from 'fs-extra'
 import { Listr } from 'listr2'
 
+import { getPaths } from '@redwoodjs/project-config'
 import { errorTelemetry } from '@redwoodjs/telemetry'
 
-import { getPaths } from '../../lib'
-import c from '../../lib/colors'
-
-const redwoodProjectPaths = getPaths()
+import c from '../lib/colors'
 
 export async function handler() {
+  const redwoodProjectPaths = getPaths()
+
   const tasks = new Listr(
     [
       {
-        title: `Creating the dataMigrations directory...`,
+        title: 'Creating the dataMigrations directory...',
         task() {
           fs.outputFileSync(
-            path.join(getPaths().api.dataMigrations, '.keep'),
+            path.join(redwoodProjectPaths.api.dataMigrations, '.keep'),
             ''
           )
         },
@@ -27,22 +27,19 @@ export async function handler() {
         title: 'Adding the RW_DataMigration model to schema.prisma...',
         task() {
           const dbSchemaPath = redwoodProjectPaths.api.dbSchema
-
           const dbSchema = fs.readFileSync(dbSchemaPath, 'utf-8')
-          const newDbSchema = [dbSchema, RW_DATA_MIGRATION_MODEL, ''].join('\n')
-
-          fs.writeFileSync(dbSchemaPath, newDbSchema)
+          fs.writeFileSync(
+            dbSchemaPath,
+            [dbSchema, RW_DATA_MIGRATION_MODEL, ''].join('\n')
+          )
         },
       },
       {
         title: 'Creating the database migration...',
         task() {
-          return execa.command(
-            'yarn rw prisma migrate dev --name create_data_migrations --create-only',
-            {
-              cwd: redwoodProjectPaths.api.base,
-            }
-          ).stdout
+          return execa.command(createDatabaseMigrationCommand, {
+            cwd: redwoodProjectPaths.api.base,
+          })
         },
       },
       {
@@ -58,22 +55,30 @@ export async function handler() {
         },
       },
     ],
-    { rendererOptions: { collapseSubtasks: false }, exitOnError: true }
+    {
+      rendererOptions: {
+        collapseSubtasks: false,
+      },
+      exitOnError: true,
+    }
   )
 
   try {
     await tasks.run()
   } catch (e) {
-    errorTelemetry(process.argv, e.message)
-    console.error(c.error(e.message))
-    process.exit(e?.exitCode || 1)
+    process.exitCode = 1
+    console.error(c.error((e as Error).message))
+    errorTelemetry(process.argv, (e as Error).message)
   }
 }
 
-const RW_DATA_MIGRATION_MODEL = `\
+export const RW_DATA_MIGRATION_MODEL = `\
 model RW_DataMigration {
   version    String   @id
   name       String
   startedAt  DateTime
   finishedAt DateTime
 }`
+
+export const createDatabaseMigrationCommand =
+  'yarn rw prisma migrate dev --name create_data_migrations --create-only'
