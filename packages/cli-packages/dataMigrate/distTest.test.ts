@@ -15,7 +15,6 @@ describe('dist', () => {
 
   it('should export commands', async () => {
     const mod = await import(path.join(distPath, 'index.js'))
-
     expect(mod).toHaveProperty('commands')
   })
 

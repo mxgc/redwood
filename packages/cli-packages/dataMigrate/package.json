@@ -7,7 +7,9 @@
     "directory": "packages/cli-packages/storybook"
   },
   "license": "MIT",
-  "bin": "./dist/bin.js",
+  "bin": {
+    "cli-data-migrate": "./dist/bin.js"
+  },
   "exports": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
@@ -18,8 +20,8 @@
     "build:types": "tsc --build --verbose",
     "prepack": "NODE_ENV=production yarn build:js",
     "test": "yarn test:unit && yarn test:dist",
-    "test:unit": "yarn jest src --no-cache",
-    "test:dist": "yarn jest ./testDist.test.ts"
+    "test:unit": "yarn jest src",
+    "test:dist": "yarn jest ./distTest.test.ts"
   },
   "dependencies": {
     "@redwoodjs/internal": "6.0.7",
